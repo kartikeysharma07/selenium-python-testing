@@ -18,20 +18,21 @@ class OrderPage(BasePage):
         self.loginPage.get_login(email, password)
 
     def get_page_title(self):
-        title=self.get_title()
-        assert title ==info.home_page_title,error.title_error_message
+        self.assert_equal_title(info.home_page_title,error.title_error_message)
     def scroll_to_product(self):
         self.scroll_to_element(oc.Product)
 
     def add_to_cart(self):
         self.do_click(oc.Add_To_Cart)
-        return self.get_element_text(oc.Product_Added)
+        # return self.get_element_text(oc.Product_Added)
+        # title=self.get_element_text(oc.Product_Added)
+        self.assert_equal_check_element(oc.Product_Added,info.add_to_cart_title, error.cart_error_message)
+
 
     def place_order(self, payment):
         self.do_click(oc.Continue_Shopping)
         self.do_click(oc.Cart)
-        get_url = self.get_url()
-        assert user.cart in get_url, error.cart_error_message
+        self.assert_equal_url(user.cart,error.order_page_error_message)
         self.do_click(oc.Checkout)
         self.do_click(oc.Place_Order)
         self.do_send_keys(oc.Name_On_Card, payment['name'])
@@ -40,11 +41,9 @@ class OrderPage(BasePage):
         self.do_send_keys(oc.Expiry_Month, payment['expiry-month'])
         self.do_send_keys(oc.Expiry_Year, payment['expiry-year'])
         self.do_click(oc.Submit)
-        get_url = self.get_url()
-        assert user.payment in get_url,error.payment_error_message
+        self.assert_equal_url(user.payment,error.payment_error_message)
         self.do_click(oc.Continue)
-        title=self.get_title()
-        assert title==info.home_page_title,error.title_error_message
+        self.assert_equal_title(info.home_page_title,error.title_error_message)
 
     def get_login(self,email,password):
         self.login(email, password)

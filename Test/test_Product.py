@@ -6,12 +6,13 @@ class Test_Product(BaseTest):
 
     data_provider=DataProvider()
 
-    def test_verify_page_title(self):
+    def setup_method(self):
         self.product=Product(self.driver)
+
+    def test_verify_page_title(self):
         self.product.get_page_title()
 
     def test_search_product(self):
-        self.product = Product(self.driver)
         products=self.data_provider.get_products()
         login_credentials = self.data_provider.get_login_credentials()
         for product in products:

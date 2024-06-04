@@ -17,3 +17,5 @@ class RegisterLocators:
     Element = (By.XPATH, "//h2//b")
     Create_Account = (By.XPATH, "//button[@data-qa='create-account']")
     Continue_Button=(By.XPATH,"//*[@id='form']/div/div/div/div/a")
+    Email_Confirmation=(By.XPATH,"//*[@id='form']/div/div/div[3]/div/form/p")
+    logout_button = (By.XPATH, "//a[@href='/logout']")

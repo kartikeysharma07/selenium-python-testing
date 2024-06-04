@@ -13,12 +13,10 @@ class Register(BasePage):
         self.driver.get(self.url)
 
     def get_page_title(self):
-        title=self.get_title()
-        assert title == info.home_page_title
+        self.assert_equal_title(info.home_page_title, error.title_error_message)
 
     def verify_page_url(self,expected_url,message):
-        get_url=self.get_url()
-        assert expected_url in get_url,message
+        self.assert_equal_url(expected_url,message)
 
     def get_register(self, credential):
         self.do_click(rl.SignUp)
@@ -26,6 +24,9 @@ class Register(BasePage):
         self.do_send_keys(rl.Name, credential['name'])
         self.do_send_keys(rl.Email, credential['email'])
         self.do_click(rl.Signup_Button)
+        # get_title=self.get_title()
+        # assert get_title != info.signup_page_title, error.signup_error_message
+        self.assert_notequal_title(info.signup_page_title,error.signup_error_message)
         self.do_send_keys(rl.Password, credential['password'])
         self.do_click(rl.Newsletter)
         self.do_send_keys(rl.FirstName, credential['firstname'])
@@ -38,6 +39,7 @@ class Register(BasePage):
         self.do_click(rl.Create_Account)
         self.verify_page_url(user.account_action,error.account_error_message)
         self.do_click(rl.Continue_Button)
+        self.do_click(rl.logout_button)
 
 
 

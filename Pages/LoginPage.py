@@ -13,13 +13,14 @@ class Login(BasePage):
         self.driver.get(self.url)
 
     def get_page_title(self):
-        title=self.get_title()
-        assert title == info.home_page_title,error.title_error_message
+        self.assert_equal_title(info.home_page_title,error.title_error_message)
 
     def get_login(self, email, password):
         self.do_click(lc.Login)
         self.do_send_keys(lc.Email, email)
         self.do_send_keys(lc.Password, password)
         self.do_click(lc.login_button)
+
+    def get_logout(self):
         self.do_click(lc.logout_button)
 
